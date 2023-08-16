@@ -15,14 +15,14 @@ class Categories(models.Model):
 
 #listings
 class Listings(models.Model):
-    listed_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    listed_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="listings")
     status = models.BooleanField(default=True)    
     title = models.CharField(max_length=500)
     description = models.CharField(max_length=4000)
-    min_bid = models.DecimalField(decimal_places=2)
+    min_bid = models.DecimalField(decimal_places=2, max_digits=10)
     img_url = models.URLField(blank=True)
-    category = models.ForeignKey(Categories, on_delete=models.DO_NOTHING)
-    Winner = models.ForeignKey(User, default=None, on_delete=models.DO_NOTHING)
+    category = models.ForeignKey(Categories, null=True, on_delete=models.SET_NULL, related_name="lists")
+    Winner = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, related_name="won")
 
     def __str__(self):
         return f'"{self.title}" by "{self.listed_user}" at the minimum bid of "${self.min_bid}".'
