@@ -12,3 +12,23 @@ body {
 .sub-label {
     color:  rgb(67, 44, 15);
 }
+
+#active-listings{
+    border: 2px solid rgba(255, 235, 205, 0.778);
+    border-radius: 5px;
+    background-color: rgba(109, 91, 57, 0.401);
+    box-shadow: 0px 7px 7px #888888;
+}
+
+.listings_box{
+    border: 1px solid rgba(56, 52, 45, 0.778);
+    height: 250px;
+    max-width: 1140;
+    box-shadow: 4px 4px 4px #d6d6d6a5;
+    color: rgb(77, 47, 37);
+    background-color: rgba(147, 134, 115, 0.778);
+}
+
+.listing_box_img{
+    padding: auto;
+}

@@ -1,7 +1,29 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
+    
+    <div id="active-listings">
+        <h2 class="headers">Active Listings</h2>
+    </div>
+    
+    <div class="container">
 
-    TODO
+        {% for listing in listings %}
+
+            <div class="row m-3 listings_box">
+                <div class="col-md-4" style="padding-top: 14px;">
+                    <img src="{{ listing.img_url }}" class="img-fluid rounded-start" alt="{{ listing.title }}">
+                </div>
+                <div class="col-md-8">
+                    <h3>{{ listing.title }}</h3>
+                    <h4>Minimum Bid: ${{ listing.min_bid }}</h4>
+                    <h6>Description: </h6>
+                    <p style="text-indent: 4em;">{{ listing.description|truncatechars:350 }}</p>
+                </div>
+            </div>
+
+        {% endfor %}
+
+    </div>
+    
 {% endblock %}
