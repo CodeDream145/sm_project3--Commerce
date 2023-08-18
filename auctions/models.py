@@ -22,7 +22,7 @@ class Listings(models.Model):
     min_bid = models.DecimalField(decimal_places=2, max_digits=10)
     img_url = models.URLField(blank=True)
     category = models.ForeignKey(Categories, null=True, on_delete=models.SET_NULL, related_name="lists")
-    Winner = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, related_name="won")
+    winner = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, related_name="won")
 
     def __str__(self):
         return f'"{self.title}" by "{self.listed_user}" at the minimum bid of "${self.min_bid}".'

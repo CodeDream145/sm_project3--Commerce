@@ -10,17 +10,23 @@
 
         {% for listing in listings %}
 
-            <div class="row m-3 listings_box">
-                <div class="col-md-4" style="padding-top: 14px;">
-                    <a href="{% url 'listing' listing.title %}"><img src="{{ listing.img_url }}" class="img-fluid rounded-start" alt="{{ listing.title }}"></a>
+            {% if listing.status %}
+                <div class="row m-3 listings_box">
+                    <div class="col-md-4" style="padding-top: 14px;">
+                        {% if listing.img_url %}
+                            <a href="{% url 'listing' listing.title %}"><img src="{{ listing.img_url }}" class="img-fluid rounded-start" alt="{{ listing.title }}"></a>
+                        {% else %}
+                            <a href="{% url 'listing' listing.title %}"><img src="https://via.placeholder.com/1280x840.png?text=No+Image+Available" class="img-fluid rounded-start" alt="{{ listing.title }}"></a>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <a href="{% url 'listing' listing.title %}" class="listing_box_title"><h3>{{ listing.title }}</h3></a>
+                        <h4>Minimum Bid: ${{ listing.min_bid }}</h4>
+                        <h6>Description: </h6>
+                        <p class="description">{{ listing.description|truncatechars:350 }}</p>
+                    </div>
                 </div>
-                <div class="col-md-8">
-                    <a href="{% url 'listing' listing.title %}" class="listing_box_title"><h3>{{ listing.title }}</h3></a>
-                    <h4>Minimum Bid: ${{ listing.min_bid }}</h4>
-                    <h6>Description: </h6>
-                    <p style="text-indent: 4em;">{{ listing.description|truncatechars:350 }}</p>
-                </div>
-            </div>
+            {% endif %}
 
         {% endfor %}
 

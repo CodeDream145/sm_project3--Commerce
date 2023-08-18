@@ -43,3 +43,92 @@ body {
 .listing_box_img{
     padding: auto;
 }
+
+.listing_page_box{
+    border: 1px solid rgba(56, 52, 45, 0.778);
+    box-shadow: 4px 4px 4px #d6d6d6a5;
+    color: rgb(77, 47, 37);
+    background-color: rgba(147, 134, 115, 0.778);
+}
+
+.listing_page_img{
+    max-width: 500px;
+    margin: auto;
+}
+
+.description{
+    text-indent: 4em;
+}
+
+.listing_page_det{
+    font-size:medium;
+    font-weight: 450;
+    text-indent: 1em;
+
+}
+
+.listing_page_det_title{
+    text-indent: 4em;
+    width: 200px;
+}
+
+.bid_war_title{
+    text-indent: 4em;
+    margin-top: 2px;
+    width: 300px;
+}
+
+.bid_war_det{
+    border: 1px solid rgba(255, 235, 205, 0.778);
+    border-radius: 2px;
+    outline: 1px solid rgba(56, 52, 45, 0.778);
+    padding: 1px;
+    width: 150px;
+    text-align: center;
+    height: 30px;
+    font-weight: 600;
+    color: gold;
+}
+
+.bid_war_det_user{
+    border: 1px solid rgba(255, 235, 205, 0.778);
+    border-radius: 2px;
+    outline: 1px solid rgba(56, 52, 45, 0.778);
+    padding: 1px 10px 1px 10px;
+    min-width: 150px;
+    text-align: center;
+    height: 30px;
+    font-weight: 600;
+    color: gold;
+}
+
+.sold{
+    color: rgb(15, 109, 15);
+}
+
+.unsold{
+    color: maroon;
+}
+
+.bid_war_input{
+    border: 1px solid rgba(255, 235, 205, 0.778);
+    border-radius: 2px;
+    outline: 1px solid rgba(56, 52, 45, 0.778);
+    background-color: rgb(213, 198, 178);
+    margin-right: 10px;
+}
+
+.bid_war_button{
+    border: 3px solid rgba(85, 80, 70, 0.949);
+    border-radius: 2px;
+    outline: 1px solid rgba(56, 52, 45, 0.778);
+    background-color: rgb(149, 131, 111);
+    box-shadow: 0px 2px 5px rgba(94, 87, 75, 0.778);
+    color: gold
+}
+
+.bid_war_button:hover{
+    background-color: rgb(98, 89, 79);
+    outline: 2px solid rgba(194, 180, 157, 0.29);
+    border: 3px solid rgb(98, 89, 79);
+}
