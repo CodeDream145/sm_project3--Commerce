@@ -12,10 +12,10 @@
 
             <div class="row m-3 listings_box">
                 <div class="col-md-4" style="padding-top: 14px;">
-                    <img src="{{ listing.img_url }}" class="img-fluid rounded-start" alt="{{ listing.title }}">
+                    <a href="{% url 'listing' listing.title %}"><img src="{{ listing.img_url }}" class="img-fluid rounded-start" alt="{{ listing.title }}"></a>
                 </div>
                 <div class="col-md-8">
-                    <h3>{{ listing.title }}</h3>
+                    <a href="{% url 'listing' listing.title %}" class="listing_box_title"><h3>{{ listing.title }}</h3></a>
                     <h4>Minimum Bid: ${{ listing.min_bid }}</h4>
                     <h6>Description: </h6>
                     <p style="text-indent: 4em;">{{ listing.description|truncatechars:350 }}</p>

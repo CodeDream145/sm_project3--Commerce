@@ -29,6 +29,17 @@ body {
     background-color: rgba(147, 134, 115, 0.778);
 }
 
+.listing_box_title{
+    text-decoration: none;
+    color: rgb(77, 47, 37);
+}
+
+.listing_box_title:hover{
+    color: rgb(53, 33, 26);
+    text-decoration: underline;
+    text-decoration-color: rgb(53, 33, 26);
+}
+
 .listing_box_img{
     padding: auto;
 }

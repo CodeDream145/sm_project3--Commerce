@@ -118,3 +118,9 @@ def create_listing(request):
     return render(request, "auctions/add_listing.html", {
         "categories": Categories.objects.all()
     })
+
+def listing(request, title):
+    listing = Listings.objects.get(title = title)
+    return render(request, "auctions/listing.html", {
+        "listing": listing
+    })
