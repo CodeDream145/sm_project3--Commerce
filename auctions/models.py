@@ -26,3 +26,7 @@ class Listings(models.Model):
 
     def __str__(self):
         return f'"{self.title}" by "{self.listed_user}" at the minimum bid of "${self.min_bid}".'
+    
+class Watchlists(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="watchlists", unique=True)
+    listing = models.ManyToManyField(Listings,related_name="watching_users", blank=True)

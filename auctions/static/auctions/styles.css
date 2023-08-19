@@ -132,3 +132,26 @@ body {
     outline: 2px solid rgba(194, 180, 157, 0.29);
     border: 3px solid rgb(98, 89, 79);
 }
+
+
+.no_watchlists{
+    margin-top: 30px;
+    text-align: center;
+    color: rgb(77, 47, 37);
+}
+
+.other_listing_buttons{
+    border: 3px solid rgba(85, 80, 70, 0.949);
+    border-radius: 2px;
+    padding: 2px 5px 2px 5px;
+    outline: 1px solid rgba(56, 52, 45, 0.778);
+    background-color: rgb(149, 131, 111);
+    box-shadow: 0px 2px 5px rgba(94, 87, 75, 0.778);
+    color: gold
+}
+
+.other_listing_buttons:hover{
+    background-color: rgb(98, 89, 79);
+    outline: 2px solid rgba(194, 180, 157, 0.29);
+    border: 3px solid rgb(98, 89, 79);
+}

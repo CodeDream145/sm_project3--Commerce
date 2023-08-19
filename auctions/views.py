@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from .models import *
 
@@ -61,12 +62,15 @@ def register(request):
                 "message": "Username already taken."
             })
         login(request, user)
+        wl = Watchlists(user = user)
+        wl.save()
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
 
+@login_required(login_url='login')
 def create_listing(request):
-    
+
     if request.method == "POST":
         user = request.user
         title = str(request.POST["title"])
@@ -121,6 +125,39 @@ def create_listing(request):
 
 def listing(request, title):
     listing = Listings.objects.get(title = title)
+    if request.user.is_authenticated:
+        watchlist = Watchlists.objects.get(user = request.user)
+        watchlist = watchlist.listing.all()
+    else:
+        watchlist = None
+
     return render(request, "auctions/listing.html", {
-        "listing": listing
+        "listing": listing,
+        "watchlist": watchlist
     })
+
+@login_required(login_url='login')
+def watchlists(request):
+    
+    watchlists = Watchlists.objects.get(user = request.user)
+    return render(request, "auctions/watchlists.html", {
+        "watchlists": watchlists.listing.all()
+    })
+
+@login_required(login_url='login')
+def add_watchlist(request, title):
+    watchlists = Watchlists.objects.get(user = request.user)
+    listing = Listings.objects.get(title = title)
+    watchlists.listing.add(listing)
+
+    return HttpResponseRedirect(reverse("watchlists"))
+
+
+@login_required(login_url='login')
+def remove_watchlist(request, title):
+    watchlists = Watchlists.objects.get(user = request.user)
+    listing = Listings.objects.get(title = title)
+    watchlists.listing.remove(listing)
+
+    return HttpResponseRedirect(reverse("watchlists"))
+
