@@ -40,6 +40,12 @@
             {% endif %}
         </ul>
         <hr>
+        {% if g_message %}
+            <div class="alert alert-success" style="text-align: center;" role="alert">
+                {{ g_message }}
+            </div>
+        {% endif %} 
+        
         {% block body %}
         {% endblock %}
     </body>

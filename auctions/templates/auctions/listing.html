@@ -47,7 +47,11 @@
             </div>
             <div class="row m-1">
                 <div class="listing_page_det_title"><h5>Listed by:</h5></div>
-                <p class="listing_page_det">{{ listing.listed_user }}</p>
+                {% if listing.listed_user == user %}
+                    <p class="listing_page_det">(YOU)</p>
+                {% else %}
+                    <p class="listing_page_det">{{ listing.listed_user }}</p>
+                {% endif %}
             </div>
             <div class="row m-1">
                 <div class="listing_page_det_title"><h5>Category:</h5></div>
@@ -96,27 +100,41 @@
                 {% if listing.status %}
                     <div class="bid_war_title"><h5>Current Highest Bid:</h5></div>
                     {% if listing.highest_bid %}
-                        <div><p class="bid_war_det">$40000000.00</p></div>
+                        <div class="bid_war_det"><p>{{ listing.highest_bid.bid_amount }}</p></div>
                         <h5> -by- </h5>
-                        <div class="bid_war_det_user"><p>Shadow aka Ghost</p></div>
+                        {% if listing.highest_bid.user == user %}
+                            <div class="bid_war_det_user"><p>(YOU)</p></div>
+                        {% else %}
+                            <div class="bid_war_det_user"><p>{{ listing.highest_bid.user }}</p></div>
+                        {% endif %}
                     {% else %}
                         <div><p class="bid_war_det">"No Bids Yet"</p></div>
                     {% endif %}
                 {% else %}
                     {% if listing.winner %}
-                        <div class="sold" style="text-indent: 4em;"><h5>Auction Closed and {{ listing.winner }} Grab the product for $listing.higest_bid .</h5></div>
+                        <div class="sold" style="text-indent: 4em;"><h5>Auction Closed and {{ listing.winner }} Grab the product for ${{ listing.higest_bid.bid_amount }} </h5></div>
                     {% else %}
                         <div class="unsold" style="text-indent: 4em;"><h5>Auction Closed and The Product is "UNSOLD".</h5></div>
                     {% endif %}
                 {% endif %}
             </div>
             {% if user.is_authenticated and user != listing.listed_user %}
-                <form action="#">
+                <form action="{% url 'bid' listing.title %}" method="post">
+                    {% csrf_token %}
                     <div class="row m-1">
                         <div class="bid_war_title"><h5>Bid:</h5></div>
-                        <input type="number" class="bid_war_input" step="0.01" style="width: auto;" min="1" name="user_bid" id="user_bid" aria-describedby="User Bid" placeholder="$0.00">
+                        {% if listing.highest_bid %}
+                            <input type="number" class="bid_war_input" step="0.01" style="width: auto;" min="{{ listing.highest_bid.bid_amount }}" name="user_bid" id="user_bid" aria-describedby="User Bid" placeholder="${{ listing.highest_bid.bid_amount }}">
+                        {% else %}
+                            <input type="number" class="bid_war_input" step="0.01" style="width: auto;" min="{{ listing.min_bid }}" name="user_bid" id="user_bid" aria-describedby="User Bid" placeholder="${{ listing.min_bid }}">
+                        {% endif %}
                         <button type="submit" class="bid_war_button">Bid</button>
                     </div>
+                    {% if bid_error %}
+                        <div style="margin-left: 300px;"> 
+                            <p style="color: red;">{{ bid_error }}</p>
+                        </div>
+                    {% endif %}
                 </form>
             {% endif %}
         </div>

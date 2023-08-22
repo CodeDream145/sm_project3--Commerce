@@ -161,3 +161,48 @@ def remove_watchlist(request, title):
 
     return HttpResponseRedirect(reverse("watchlists"))
 
+@login_required(login_url='login')
+def bid(request, title):
+    try:
+        listing = Listings.objects.get(title = title)
+    except ObjectDoesNotExist:
+        return HttpResponse("<h1 style='text-align: center;'>404 Requested Page Not Found.<h1>")
+
+    if request.user.is_authenticated:
+        watchlist = Watchlists.objects.get(user = request.user)
+        watchlist = watchlist.listing.all()
+    else:
+        watchlist = None
+
+    bid_error = []
+    bid = request.POST["user_bid"]
+    try:
+        bid = float(bid)
+    except ValueError:
+        bid_error = "Invalid Bid!"
+    
+    if not bid_error:
+        hb = listing.highest_bid()
+        if bid <= listing.min_bid:
+            bid_error = "Bid Must Be Atleast Higher Than The Minimum Bid."
+        elif hb and bid <= hb.bid_amount :
+            bid_error = "Bid Must Be Higher Than The Current Highest Bid."
+    
+    if bid_error:
+        return render(request, "auctions/listing.html", {
+            "listing": listing,
+            "watchlist": watchlist,
+            "bid_error": bid_error
+        })
+    
+    bidding = Biddings(user = request.user, listing = listing, bid_amount = bid)
+    bidding.save()
+
+    return render(request, "auctions/listing.html", {
+        "listing": listing,
+        "watchlist": watchlist,
+        "g_message": "Bidded Successfully"
+    })
+
+
+          
