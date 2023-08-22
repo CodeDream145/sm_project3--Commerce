@@ -22,21 +22,32 @@
         </div>
         <!--buttons-->
         {% if user.is_authenticated %}
+            <div class="row m-3">
             {% if listing in watchlist %}
-                <div class="row m-3">
+                <div>    
                     <form action="{% url 'remove_watchlist' listing.title %}" method="post">
                         {% csrf_token %}
                         <button type="submit" class="bid_war_button">Remove from Watchlist</button>
                     </form>
                 </div>
             {% else %}
-                <div class="row m-3">
+                <div>
                     <form action="{% url 'add_watchlist' listing.title %}" method="post">
                         {% csrf_token %}
                         <button type="submit" class="bid_war_button">Add to Watchlist</button>
                     </form>
                 </div>
             {% endif %}
+
+            {% if listing.listed_user == user and not listing.winner %}
+                <div style="margin-left: 20px;">
+                    <form action="{% url 'close_auction' listing.title %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="auc_close_button">Close Auction</button>
+                    </form>
+                </div>
+            {% endif %}
+            </div>
         {% endif %}
         <!--details-->
         <div class="m-3">
@@ -112,7 +123,7 @@
                     {% endif %}
                 {% else %}
                     {% if listing.winner %}
-                        <div class="sold" style="text-indent: 4em;"><h5>Auction Closed and {{ listing.winner }} Grab the product for ${{ listing.higest_bid.bid_amount }} </h5></div>
+                        <div class="sold" style="text-indent: 4em;"><h5>Auction Closed and {{ listing.winner }} Grab the product for ${{ listing.highest_bid.bid_amount }} </h5></div>
                     {% else %}
                         <div class="unsold" style="text-indent: 4em;"><h5>Auction Closed and The Product is "UNSOLD".</h5></div>
                     {% endif %}

@@ -45,6 +45,11 @@
                 {{ g_message }}
             </div>
         {% endif %} 
+        {% if r_message %}
+            <div class="alert alert-danger" style="text-align: center;" role="alert">
+                {{ r_message }}
+            </div>
+        {% endif %} 
         
         {% block body %}
         {% endblock %}

@@ -204,5 +204,34 @@ def bid(request, title):
         "g_message": "Bidded Successfully"
     })
 
+@login_required(login_url='login')
+def close_auction(request, title):
 
-          
+    try:
+        listing = Listings.objects.get(title = title)
+    except ObjectDoesNotExist:
+        return HttpResponse("<h1 style='text-align: center;'>404 Requested Page Not Found.<h1>")
+
+    if not listing.listed_user == request.user:
+        return HttpResponse("<h1 style='text-align: center;'>403 Permission Denied!<h1>")
+    
+    hb = listing.highest_bid()
+
+    if not hb:
+        listing.status = False
+        listing.save()
+        return render(request, "auctions/listing.html", {
+            "listing": listing,
+            "r_message": f'Auction Closed and Product "UNSOLD".'
+        })
+
+    listing.winner = hb.user    
+    listing.status = False
+    listing.save()
+    
+    return render(request, "auctions/listing.html", {
+        "listing": listing,
+        "g_message": f'Auction Closed and {hb.user}" won the Auction for ${hb.bid_amount}'
+    })
+    
+
