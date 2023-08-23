@@ -141,7 +141,7 @@ def watchlists(request):
     
     watchlists = Watchlists.objects.get(user = request.user)
     return render(request, "auctions/watchlists.html", {
-        "watchlists": watchlists.listing.all()
+        "watchlists": watchlists.listing.filter(status = True).all()
     })
 
 @login_required(login_url='login')
@@ -233,7 +233,8 @@ def close_auction(request, title):
         "listing": listing,
         "g_message": f'Auction Closed and {hb.user}" won the Auction for ${hb.bid_amount}'
     })
-    
+
+@login_required(login_url='login')
 def comments(request, title):
     try:
         listing = Listings.objects.get(title = title)
@@ -262,3 +263,21 @@ def comments(request, title):
     user_comment = Comments(user = request.user, listing = listing, comment = str(comment))
     user_comment.save()
     return HttpResponseRedirect(reverse('listing', args=(listing.title,)))
+
+def categories(request):
+    return render(request, "auctions/all_categories.html", {
+        "categories": Categories.objects.all(),
+    })
+
+def s_category(request, category):
+    try:
+        category = Categories.objects.get(category=category)
+    except ObjectDoesNotExist:
+        return HttpResponse("<h1 style='text-align: center;'>404 Requested Page Not Found.<h1>")
+    
+    listings = Listings.objects.filter(category=category)
+
+    return render(request, "auctions/s_category.html", {
+        "listings": listings,
+        "category": category.category,
+    })

@@ -1,17 +1,15 @@
 {% extends "auctions/layout.html" %}
 
-{% block title %}
-    Watchlists
-{% endblock %}
-
 {% block body %}
-<div id="active-listings">
-    <h2 class="headers">Watchlists</h2>
-</div>
+    
+    <div id="active-listings">
+        <h2 class="headers">{{ category }}</h2>
+    </div>
+    
+    <div class="container">
 
-<div class="container">
-    {% if watchlists %}
-        {% for listing in watchlists %}
+        {% for listing in listings %}
+
             {% if listing.status %}
                 <div class="row m-3 listings_box">
                     <div class="col-md-4" style="padding-top: 14px;">
@@ -29,13 +27,11 @@
                     </div>
                 </div>
             {% endif %}
-        
+
         {% empty %}
-            <h1 class="no_watchlists"> No Items In Watchlist! </h1>
+                <h1 class="nope">No Listing in This Category!</h1>
         {% endfor %}
 
-    {% else %}
-        <h1 class="no_watchlists"> No Items In Watchlist! </h1>
-    {% endif %}
-</div>
+    </div>
+    
 {% endblock %}
