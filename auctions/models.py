@@ -43,3 +43,12 @@ class Biddings(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bids")
     listing = models.ForeignKey(Listings, on_delete=models.CASCADE, related_name="bids")
     bid_amount = models.DecimalField(decimal_places=2, max_digits=10)
+
+#comments
+class Comments(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="my_comments")
+    listing = models.ForeignKey(Listings, on_delete=models.CASCADE, related_name="comments")
+    comment = models.CharField(max_length=2000)
+
+    def __str__(self):
+        return f'[{self.user}] on [{self.listing}]'  

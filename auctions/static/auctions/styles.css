@@ -170,3 +170,41 @@ body {
     outline: 2px solid rgba(194, 180, 157, 0.29);
     border: 3px solid rgb(98, 89, 79);
 }
+
+.comments_name{
+    font-weight: 700;
+    font-size: 17px;
+}
+
+.comments{
+    text-indent: 3em;
+}
+
+.horiz_line{
+    border-top: 1px solid #8c857b;
+    margin: auto;
+}
+
+.comment_line{
+    border: none;
+    background: none;
+    margin-left: 5px;
+    width: 800px;
+    font-size: 16px;
+    color: rgb(61, 38, 30);
+    border-bottom: 1px solid rgba(74, 69, 60, 0.778);
+    transition: 0.3s ease;
+    resize: none;
+    overflow: hidden;
+    padding-bottom: 0px;
+}
+
+.comment_line:focus {
+    outline: none;
+    border-bottom: 1px solid rgb(41, 38, 33);
+}
+
+.comment_label{
+    margin-left: 10px;
+    font-weight: 600;
+}

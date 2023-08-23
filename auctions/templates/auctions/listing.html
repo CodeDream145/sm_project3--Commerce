@@ -149,6 +149,39 @@
                 </form>
             {% endif %}
         </div>
-
+        <hr>
+        <!--Comments-->
+        <div class="m-3">
+            <h4>Comments:</h4>
+            {% if user.is_authenticated %}
+                <form action="{% url 'comments' listing.title %}" method="post">
+                    {% csrf_token %}
+                    <div class="row m-1">
+                        <label class="comment_label" for="my_comment">Me({{ user.username }}):</label>
+                        <textarea class="comment_line" id="my_comment" rows="1" name="user_comment" oninput="autoExpand(this)">{{ comment }}</textarea>
+                        {% if comment_error %}
+                            <p style="color: red; margin-left: 10px;">{{ comment_error }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="row m-1" >
+                        <button style="margin: 10px 0px 10px 13px;" type="submit" class="bid_war_button">Comment</button>
+                    </div>
+                    <div class="horiz_line"></div>
+                </form>
+            {% endif %}
+            {% if listing.comments.all %}
+                {% for comment in listing.comments.all %}
+                    <div class="m-3">
+                        <h6 class="comments_name">{{ comment.user }}</h6>
+                        <p class="comments">{{ comment.comment }}</p>
+                    </div>
+                    <div class="horiz_line"></div>
+                {% endfor %}
+            {% else %}
+                <h6 class="comments_name" style="text-align: center;">No Comments Yet.</h6>
+            {% endif %}
+        </div>
+        
+    
     </div>
 {% endblock %}
