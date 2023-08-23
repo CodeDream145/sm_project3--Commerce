@@ -5,51 +5,53 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="headers">Create Listing</h1>
-    <div class="container mb-3">
-        <form action="{% url 'create_listing' %}" method="post">
-            {% csrf_token %}
-            <div class="mb-3">
-                <label for="title" class="form-label sub-label">Product Title:</label>
-                <input type="text" name="title" class="form-control" id="title" aria-describedby="Product Title" placeholder="Title" value="{{ title }}">
-                {% if title_error %}
-                    <p style="color: red;">{{ title_error }}</p>
-                {% endif %}
-            </div>
-            <div class="mb-3">
-                <label for="description" class="form-label sub-label">Product Description:</label>
-                <textarea class="form-control" name="description" id="description" rows="6" maxlength="4000" placeholder="Upto 4000 characters">{{ description }}</textarea>
-                {% if description_error %}
-                    <p style="color: red;">{{ description_error }}</p>
-                {% endif %}
-            </div>
-            <div class="mb-3">
-                <label for="img_url" class="form-label sub-label">Image Url(Optional):</label>
-                <input type="url" name="img_url" class="form-control" id="img_url" value="{{ img_url }}" aria-describedby="img_url" placeholder="Url(Optional)">
-            </div>
-            <div class="mb-3">
-                <label for="min_bid" class="form-label sub-label">Minimum Bid:</label>
-                <input type="number" step="0.01" style="width: auto;" min="1" name="min_bid" value="{{ min_bid }}" class="form-control" id="min_bid" aria-describedby="Minimum Bid" placeholder="$0.00">
-                {% if minbid_error %}
-                    <p style="color: red;">{{ minbid_error }}</p>
-                {% endif %}
-            </div>
-            <div class="mb-3">
-                <select class="form-select sub-label" name="category" aria-label="Category">
-                    {% if e_category %}
-                        <option selected>{{ e_category }}</option>
-                    {% else %}
-                        <option selected>Category</option>
+    <div class="listing_page_box container mb-3">
+        <h1 class="headers">Create Listing</h1>
+        <div class="container mb-3">
+            <form action="{% url 'create_listing' %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="title" class="form-label sub-label">Product Title:</label>
+                    <input type="text" name="title" class="form-control bid_war_input" id="title" aria-describedby="Product Title" placeholder="Title" value="{{ title }}">
+                    {% if title_error %}
+                        <p style="color: red;">{{ title_error }}</p>
                     {% endif %}
-                    {% for category in categories %}
-                        <option value="{{ category }}">{{ category }}</option>
-                    {% endfor %}
-                </select>
-                {% if category_error %}
-                    <p style="color: red;">{{ category_error }}</p>
-                {% endif %}
-            </div>
-            <button class="btn btn-primary">Create</button>
-        </form>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label sub-label">Product Description:</label>
+                    <textarea class="form-control bid_war_input" name="description" id="description" rows="6" maxlength="4000" placeholder="Upto 4000 characters">{{ description }}</textarea>
+                    {% if description_error %}
+                        <p style="color: red;">{{ description_error }}</p>
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <label for="img_url" class="form-label sub-label">Image Url(Optional):</label>
+                    <input type="url" name="img_url" class="form-control bid_war_input" id="img_url" value="{{ img_url }}" aria-describedby="img_url" placeholder="Url(Optional)">
+                </div>
+                <div class="mb-3">
+                    <label for="min_bid" class="form-label sub-label">Minimum Bid:</label>
+                    <input type="number" step="0.01" style="width: auto;" min="1" name="min_bid" value="{{ min_bid }}" class="form-control bid_war_input" id="min_bid" aria-describedby="Minimum Bid" placeholder="$0.00">
+                    {% if minbid_error %}
+                        <p style="color: red;">{{ minbid_error }}</p>
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <select class="form-select sub-label bid_war_input" name="category" aria-label="Category">
+                        {% if e_category %}
+                            <option selected>{{ e_category }}</option>
+                        {% else %}
+                            <option selected>Category</option>
+                        {% endif %}
+                        {% for category in categories %}
+                            <option value="{{ category }}">{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                    {% if category_error %}
+                        <p style="color: red;">{{ category_error }}</p>
+                    {% endif %}
+                </div>
+                <button class="btn btn-primary bid_war_button">Create</button>
+            </form>
+        </div>
     </div>
 {% endblock %}

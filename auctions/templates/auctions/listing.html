@@ -123,13 +123,17 @@
                     {% endif %}
                 {% else %}
                     {% if listing.winner %}
-                        <div class="sold" style="text-indent: 4em;"><h5>Auction Closed and {{ listing.winner }} Grab the product for ${{ listing.highest_bid.bid_amount }} </h5></div>
+                        {% if listing.winner == user %}
+                            <div class="sold" style="text-indent: 4em;"><h5>Auction Closed and YOU Grab the product for ${{ listing.highest_bid.bid_amount }} </h5></div>
+                        {% else %}
+                            <div class="sold" style="text-indent: 4em;"><h5>Auction Closed and {{ listing.winner }} Grab the product for ${{ listing.highest_bid.bid_amount }} </h5></div>
+                        {% endif %}
                     {% else %}
                         <div class="unsold" style="text-indent: 4em;"><h5>Auction Closed and The Product is "UNSOLD".</h5></div>
                     {% endif %}
                 {% endif %}
             </div>
-            {% if user.is_authenticated and user != listing.listed_user %}
+            {% if user.is_authenticated and user != listing.listed_user and listing.status%}
                 <form action="{% url 'bid' listing.title %}" method="post">
                     {% csrf_token %}
                     <div class="row m-1">
@@ -153,7 +157,7 @@
         <!--Comments-->
         <div class="m-3">
             <h4>Comments:</h4>
-            {% if user.is_authenticated %}
+            {% if user.is_authenticated and listing.status %}
                 <form action="{% url 'comments' listing.title %}" method="post">
                     {% csrf_token %}
                     <div class="row m-1">

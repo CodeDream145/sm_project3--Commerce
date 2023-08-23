@@ -231,7 +231,7 @@ def close_auction(request, title):
     
     return render(request, "auctions/listing.html", {
         "listing": listing,
-        "g_message": f'Auction Closed and {hb.user}" won the Auction for ${hb.bid_amount}'
+        "g_message": f'Auction Closed and "{hb.user}" won the Auction for ${hb.bid_amount}'
     })
 
 @login_required(login_url='login')
@@ -241,7 +241,7 @@ def comments(request, title):
     except ObjectDoesNotExist:
         return HttpResponse("<h1 style='text-align: center;'>404 Requested Page Not Found.<h1>")
 
-    comment = str(request.POST["user_comment"])
+    comment = (request.POST["user_comment"])
 
     if not comment or not len(str(comment)) <=2000:
         if request.user.is_authenticated:
@@ -254,11 +254,13 @@ def comments(request, title):
             comment_error = "No Comment provided"
         elif not len(str(comment)) <=2000:
             comment_error = "Comment can only be upto 2000 characters."
+        
+        if comment_error:
             return render(request, "auctions/listing.html", {
                 "listing": listing,
                 "watchlist": watchlist,
                 "comment_error": comment_error,
-                "comment" : comment
+                "comment" : str(comment)
             })
     user_comment = Comments(user = request.user, listing = listing, comment = str(comment))
     user_comment.save()
