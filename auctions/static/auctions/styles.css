@@ -239,3 +239,25 @@ body {
     text-align: center;
     margin-top: 40px;
 }
+
+
+body{
+    color: rgb(65, 50, 30);
+    background-color: rgba(108, 83, 50, 0.308);
+}
+
+.head_link{
+    text-decoration: none;
+    color: rgb(100, 39, 18);
+    margin-right: 10px;
+}
+.head_link:hover{
+    text-decoration: none;
+    color: rgba(147, 64, 37, 0.947);
+    margin-right: 10px;
+}
+
+.head_link_box{
+    margin-top: 15px;
+    background-color: rgba(159, 107, 39, 0.552);
+}
